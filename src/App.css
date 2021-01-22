@@ -1,4 +1,112 @@
-.App {
-  text-align: center;
+html,#root,#App{
+  height: 100vh;
 }
 
+#App {
+  text-align: center;
+}
+.clearfix{
+  content: "";
+  clear: both;
+  display: block;
+}
+
+.container,.auth-left,.auth-right{
+  overflow: hidden;
+  height: 100%;
+}
+
+
+.auth-left{
+  color: white;
+  float: left;
+  background: rgb(0,27,36);
+  background: linear-gradient(42deg, rgba(0,27,36,1) 0%, rgba(9,121,73,1) 50%, rgba(0,27,36,1) 100%);
+}
+.auth-left img{
+  height: 190px;
+}
+
+.auth-left div{
+  height: 50%;
+  width: 100%;
+
+  justify-content: center;
+  margin: auto;
+  display: flex;
+}
+
+.auth-left div:first-child{
+  align-items: flex-end;
+}
+.auth-left div:last-child{
+  justify-content: start;
+  margin-top: 10%;
+  flex-direction: column;
+}
+
+.auth-left,.auth-right{
+  width: 50%;
+}
+.auth-right{
+  float: right;
+  margin-top: 5%;
+}
+
+#login-header-container{
+  color: grey;
+}
+
+#login-form-container{
+  margin-top: 15%;
+}
+#login-form-container form{
+  padding: 0px 20%;
+}
+#login-form-container button{
+  width: 100%;
+}
+
+
+#login-form-container form>div{
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+
+@media only screen and (max-width: 600px)  {
+
+  #login-container{
+    display: flex;
+    flex-direction: column;
+  }
+  #login-container>div{
+    width: 100%;
+  }
+  .auth-left{
+    flex: 1;
+  }
+  .auth-left>div{
+    height:100%;
+  }
+  .auth-right{
+    flex: 2;
+  }
+
+  .auth-left div:last-child{
+    display: none;
+  }
+
+}
+
+.errorMessage{
+  background: #ffadad;
+  color: white;
+  font-size: 25px;
+  padding: 5px;
+  border-radius: 5px;
+  margin: 0px 20%;
+  height: 30px;
+  text-transform: capitalize;
+  margin-bottom: 15px;
+}

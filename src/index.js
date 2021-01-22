@@ -8,9 +8,8 @@ import {createStore} from "redux"
 import {Provider} from "react-redux"
 
 
-import rootReducer from "./Reducers/rootReducer"
+import store from "./Store/store"
 
-const store=createStore(rootReducer)
 
 ReactDOM.render(
   <Provider store={store}>

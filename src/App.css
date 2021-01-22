@@ -53,6 +53,9 @@ html,#root,#App{
   margin-top: 5%;
 }
 
+#login-header-container {
+  font-size: 25px;
+}
 #login-header-container{
   color: grey;
 }
@@ -78,6 +81,7 @@ html,#root,#App{
 
   #login-container{
     display: flex;
+    overflow: scroll;
     flex-direction: column;
   }
   #login-container>div{
@@ -86,15 +90,28 @@ html,#root,#App{
   .auth-left{
     flex: 1;
   }
+  .auth-left img {
+    height: 130px;
+  }
   .auth-left>div{
     height:100%;
   }
   .auth-right{
-    flex: 2;
+    flex: 3;
+  }
+
+  #login-form-container form {
+    padding: 0px 15%;
   }
 
   .auth-left div:last-child{
     display: none;
+  }
+  #login-header-container,h2,p {
+    font-size: 14px;
+  }
+  #login-form-container{
+    margin-top: 0;
   }
 
 }

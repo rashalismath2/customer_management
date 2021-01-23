@@ -5,6 +5,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import axios from "axios"
 import {connect} from "react-redux"
+import {Link} from "react-router-dom"
 
 import AuthLeft from "./AuthLeft"
 
@@ -80,6 +81,9 @@ class Register extends Component{
 
                             {this.state.enableRegister?<Button  type="submit" variant="outlined" color="primary">Sign Up</Button>: <Button  type="submit" disabled variant="outlined" color="primary"><CircularProgress  /></Button>}
                         </form>
+                        <div>
+                            <p>Already have an account? <Link to="/login">Login</Link></p>
+                        </div>
                     </div>
                 </div>
             </div>

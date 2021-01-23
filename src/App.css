@@ -54,14 +54,14 @@ html,#root,#App{
 }
 
 #login-header-container {
-  font-size: 25px;
+  font-size: 15px;
 }
 #login-header-container{
   color: grey;
 }
 
 #login-form-container{
-  margin-top: 15%;
+  margin-top: 10%;
 }
 #login-form-container form{
   padding: 0px 20%;
@@ -76,8 +76,87 @@ html,#root,#App{
   width: 100%;
 }
 
+#login-form-container>div{
+  margin-top: 12px;
+  padding: 0 20%;
+}
+#login-form-container>div div{
+  display: flex;
+    justify-content: center;
+}
+#login-form-container>div div p{
+  margin: 0;
+}
+#login-form-container a{
+  margin-left: 5px;
+  text-decoration: none;
+}
 
-@media only screen and (max-width: 600px)  {
+
+@media only screen and (max-width: 380px)  {
+  #login-form-container>div div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+nav>div:first-child{
+  float: left;
+}
+nav>div:last-child{
+  float: right;
+}
+.dropdown{
+  height: 30px;
+}
+.dropdown a{
+  height: inherit;
+  color: black;
+  border: none;
+  background: none;
+}
+.dropdown a p{
+  display: inline;
+}
+
+.btn-secondary:hover{
+  background: none;
+  color: black;
+}
+.dropdown-menu.show{
+  left: -20px;
+}
+.pagination{
+  justify-content: center;
+}
+
+.alert{
+  height: auto;
+  width: fit-content;
+  margin-top: 20px;
+}
+#dashboard-container{
+  margin-top: 30px;
+}
+
+table   .MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-formControl{
+  height: 35px;
+  margin-top: 15px;
+}
+td .btn-sm{
+  margin-right: 5px;
+}
+
+#dashboard-container{
+  overflow: unset;
+}
+
+@media only screen and (max-width: 740px)  {
+
+  .userName{
+    font-size: 19px;
+  }
 
   #login-container{
     display: flex;
@@ -114,16 +193,152 @@ html,#root,#App{
     margin-top: 0;
   }
 
+  #outlined-basic-label{
+    top: -9px;
+  }
+
+
+
+  #dashboard-container table thead{
+    display: none;
+  }
+
+  #dashboard-container table tr{
+    display: flex;
+    flex-flow: wrap;
+    width: inherit;
+    position: relative;
+    font-size: 20px;
+  }
+
+  #dashboard-container table tr td{
+    border: none;
+  }   
+  #dashboard-container table tr th{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    border: none;
+    height: 100%;
+  }   
+
+  #dashboard-container table th:first-child{
+    width: 25%;
+    order: 1;
+    position: absolute;
+  }
+  #dashboard-container .MuiAvatar-root.MuiAvatar-circle{
+      width: 65px;
+      height: auto;
+  }
+  #dashboard-container table td:nth-child(2){
+    width: 50%;
+    text-align: end;
+    order: 2;
+  }
+  #dashboard-container table td:nth-child(3){
+    width: 25%;
+    text-align: start;
+    padding-left: 0;
+    order: 3;
+  }
+  #dashboard-container table td:nth-child(4){
+    width: 100%;
+    order: 5;
+    padding-left: 55px;
+  }
+  #dashboard-container table td:nth-child(5){
+    width: 25%;
+    order: 4;
+  }
+
+  .tbl-edt-fName,.tbl-edt-lName,.tbl-edt-email{
+    width: 100% !important;
+    text-align: end !important;
+  }
+  .tbl-edt-email{
+    order: 4 !important;
+  }
+  .tbl-edt-act{
+    text-align: end;
+    order: 5 !important;
+    width: 100% !important;
+  }
+
+
 }
 
 .errorMessage{
   background: #ffadad;
   color: white;
-  font-size: 25px;
+  font-size: 20px;
   padding: 5px;
   border-radius: 5px;
   margin: 0px 20%;
   height: 30px;
   text-transform: capitalize;
   margin-bottom: 15px;
+}
+
+
+@media (max-width: 350px){
+  html{
+    position: fixed;
+    width: 100vw;
+  }
+    nav{
+      display: flex !important;
+      flex-direction: column !important;
+    }
+    #dashboard-container table tr{
+      font-size: 12px !important;
+    }
+}
+@media (min-width: 576px){
+  .container{
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+}
+
+@media only screen and (max-width: 740px){
+  .container{
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+  body{
+    letter-spacing: 2px;
+    /* font-size: 35px; */
+  }
+}
+@media  (min-width: 740px){
+  .container{
+    font-size: 1.5rem;     
+  }
+
+  #login-container h1,a,h2,p{
+    font-size: 1rem;
+  }
+
+  #dashboard-container{
+    padding: 0 5% !important;
+  }
+}
+@media (min-width: 768px){
+
+  .container{
+    padding: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+}
+@media (min-width: 992px){
+  .container{
+    padding: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
 }

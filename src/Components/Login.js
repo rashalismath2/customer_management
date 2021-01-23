@@ -5,6 +5,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import axios from "axios"
 import {connect} from "react-redux"
+import {Link} from "react-router-dom"
 
 import AuthLeft from "./AuthLeft"
 import AuthService from '../Services/auth'
@@ -79,11 +80,18 @@ class Login extends Component{
                     <div id="login-form-container">
                         {err}
                         <form onSubmit={this.submitLogin} >
-                            <TextField error={this.state.error} name="email" onChange={this.setInput} id="outlined-basic" type="email" required label="Email" variant="outlined" />
+                            <TextField  error={this.state.error} name="email" onChange={this.setInput} id="outlined-basic" type="email" required label="Email" variant="outlined" />
                             <TextField error={this.state.error} name="password" onChange={this.setInput} type="password" required id="outlined-basic" label="Password" variant="outlined" />
 
                             {this.state.enableLogin?<Button  type="submit" variant="outlined" color="primary">Login</Button>: <Button  type="submit" disabled variant="outlined" color="primary"><CircularProgress  /></Button>}
                         </form>
+                        <div>
+                            <p>Forgot your password?</p>
+                            <div>
+                                <p>Don't have an account?</p>
+                                <Link to="/register">Sign up</Link>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

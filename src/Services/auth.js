@@ -16,6 +16,7 @@ class Auth{
         cb()
     }
     logout(cb){
+        window.localStorage.clear()
         this.authenticated=false
         cb()
     }

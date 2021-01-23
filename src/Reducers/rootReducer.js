@@ -20,6 +20,12 @@ const rootReducer=(state=initState,action)=>{
             user:action.user
         }
     }
+    else if(action.type=="logout-user"){
+        return {
+            ...state,
+            user:{}
+        }
+    }
     return state
 }
 

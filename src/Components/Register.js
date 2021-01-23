@@ -31,23 +31,33 @@ class Register extends Component{
         this.setState({
             enableRegister:false
         })
-        axios.post("https://reqres.in/api/register",{
-            email:this.state.email,
-            firstName:this.state.firstName,
-            lastName:this.state.lastName,
-            password:this.state.password
-        })
-        .then(res=>{
-            this.props.history.push("/login")
-        })
-        .catch(e=>{
-
+        if(this.state.password.replace(/\s+/g, '').length<5){
             this.setState({
-                errorMessage:e.response.data.error,
+                errorMessage:"Please enter a strong password",
                 enableRegister:true,
                 error:true
             })
-        })
+        }
+        else{
+            axios.post("https://reqres.in/api/register",{
+                email:this.state.email,
+                firstName:this.state.firstName,
+                lastName:this.state.lastName,
+                password:this.state.password
+            })
+            .then(res=>{
+                this.props.history.push("/login?registration=1")
+            })
+            .catch(e=>{
+    
+                this.setState({
+                    errorMessage:e.response.data.error,
+                    enableRegister:true,
+                    error:true
+                })
+            })
+        }
+
     }
     setInput(e){
         this.setState({

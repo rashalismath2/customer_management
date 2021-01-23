@@ -7,7 +7,8 @@ const initState={
         lastName:localStorage.getItem('lastName'),
         token:localStorage.getItem('token'),
     },
-    customers:[]
+    customers:[],
+    code:null
 }
 
 const rootReducer=(state=initState,action)=>{
@@ -60,6 +61,12 @@ const rootReducer=(state=initState,action)=>{
         return {
             ...state,
             customers:customers
+        }
+    }
+    else if(action.type=="store-recover-code"){
+        return {
+            ...state,
+            code:action.code
         }
     }
     return state

@@ -19,10 +19,33 @@ class Login extends Component{
             enableLogin:true,
             password:"",
             error:false,
-            errorMessage:""
+            errorMessage:"",
+            errorStyle:""
         }
         this.submitLogin=this.submitLogin.bind(this)
         this.setInput=this.setInput.bind(this)
+    }
+
+    componentDidMount(){
+        console.log(this.props)
+        if(this.props.location.search=="?password-changed=1"){
+            this.setState({
+                errorMessage:"Password changed!",
+                errorStyle:"err-success"
+            })
+        }
+        if(this.props.location.search=="?logout-success=1"){
+            this.setState({
+                errorMessage:"Logout success",
+                errorStyle:"err-success"
+            })
+        }
+        else if(this.props.location.search=="?registration=1"){
+            this.setState({
+                errorMessage:"Registration complete",
+                errorStyle:"err-success"
+            })
+        }
     }
 
     submitLogin(e){
@@ -66,7 +89,7 @@ class Login extends Component{
 
         var err=""
         if(this.state.errorMessage!=""){
-            err=<p className="errorMessage">{this.state.errorMessage}</p>
+            err=<p className={this.state.errorStyle+" errorMessage"}>{this.state.errorMessage}</p>
         }
 
         return(
@@ -86,7 +109,7 @@ class Login extends Component{
                             {this.state.enableLogin?<Button  type="submit" variant="outlined" color="primary">Login</Button>: <Button  type="submit" disabled variant="outlined" color="primary"><CircularProgress  /></Button>}
                         </form>
                         <div>
-                            <p>Forgot your password?</p>
+                            <Link to="/recover-email">Forgot your password?</Link>
                             <div>
                                 <p>Don't have an account?</p>
                                 <Link to="/register">Sign up</Link>

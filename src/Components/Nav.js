@@ -21,7 +21,7 @@ class Nav extends Component {
         logout(){
             AuthService.logout(()=>{
                 this.props.logout()
-                this.props.history.push("/login")
+                this.props.history.push("/login?logout-success=1")
             })
         }
 

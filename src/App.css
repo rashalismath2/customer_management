@@ -165,6 +165,9 @@ td .btn-sm{
   text-transform: capitalize;
   margin-bottom: 15px;
 }
+.err-success{
+  background: rgb(9, 224, 20);
+}
 
 .btn-close{
   padding: 5px !important;
@@ -264,7 +267,7 @@ td .btn-sm{
   .auth-left div:last-child{
     display: none;
   }
-  #login-header-container,h2,p {
+  #login-header-container,h2,p,a {
     font-size: 14px;
   }
   #login-form-container{
@@ -415,6 +418,10 @@ td .btn-sm{
 }
 
 @media only screen and (max-width: 740px){
+  .errorMessage{
+    font-size: 12px;
+    height: fit-content;
+  }
   .container{
     width: 100% !important;
     max-width: 100% !important;
@@ -430,6 +437,9 @@ td .btn-sm{
   }
 }
 @media  (min-width: 740px){
+  .errorMessage{
+    height: fit-content;
+  }
   .container{
     font-size: 1.5rem;     
   }

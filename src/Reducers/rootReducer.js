@@ -6,10 +6,12 @@ const initState={
         firstName:localStorage.getItem('firstName'),
         lastName:localStorage.getItem('lastName'),
         token:localStorage.getItem('token'),
-    }
+    },
+    customers:[]
 }
 
 const rootReducer=(state=initState,action)=>{
+    
     if(action.type=="login-user"){
         localStorage.setItem("firstName", action.user.firstName);
         localStorage.setItem("lastName", action.user.lastName);
@@ -24,6 +26,40 @@ const rootReducer=(state=initState,action)=>{
         return {
             ...state,
             user:{}
+        }
+    }
+    else if(action.type=="add-customers"){
+        return {
+            ...state,
+            customers:action.customers
+        }
+    }
+    else if(action.type=="update-customers"){
+        var customers=state.customers.map(customer=>{
+            if(customer.id==action.customer.id){          
+                return action.customer
+            }
+            return customer
+        })
+        return {
+            ...state,
+            customers:customers
+        }
+    }
+    else if(action.type=="delete-customer"){
+        var customers=state.customers.filter(customer=>{
+            return customer.id!=action.id
+        })
+        return {
+            ...state,
+            customers:customers
+        }
+    }
+    else if(action.type=="add-customer"){
+        var customers=[action.customer,...state.customers]
+        return {
+            ...state,
+            customers:customers
         }
     }
     return state

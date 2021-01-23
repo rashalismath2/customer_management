@@ -2,6 +2,16 @@ import React,{Component} from "react"
 import {connect} from "react-redux"
 import Avatar from '@material-ui/core/Avatar';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import AddIcon from '@material-ui/icons/Add';
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+
+import TextField from '@material-ui/core/TextField';
+
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
 
 import Nav from "./Nav"
 
@@ -20,25 +30,35 @@ class DashBoard extends Component{
             firstName:"",
             lastName:"",
             email:"",
-            disableEdit:false
+            disableEdit:false,
+            openCreateNew:false,
+            newFirstName:"",
+            newLastName:"",
+            newEmail:"",
+            enableCreateNew:false
         }
         this.deleteUser=this.deleteUser.bind(this)
         this.nextPage=this.nextPage.bind(this)
         this.updateUser=this.updateUser.bind(this)
         this.changeData=this.changeData.bind(this)
         this.messageClosed=this.messageClosed.bind(this)
+        this.handleCloseCreateNew=this.handleCloseCreateNew.bind(this)
+        this.createNewField=this.createNewField.bind(this)
+        this.saveNewUser=this.saveNewUser.bind(this)
     }
 
     componentDidMount(){
-        axios.get("https://reqres.in/api/users?page=1")
-        .then(res=>{
-            this.setState({
-                users:res.data.data
+        console.error("customers ",this.props.customers)
+        if(this.props.customers.length==0){
+            axios.get("https://reqres.in/api/users?page=1")
+            .then(res=>{
+                this.props.addCustomers(res.data.data)
             })
-        })
-        .catch(e=>{
-            console.log(e)
-        })
+            .catch(e=>{
+                console.log(e)
+            })
+        }
+
     }
 
     messageClosed(){
@@ -71,19 +91,15 @@ class DashBoard extends Component{
                 avatar:user.avatar,
             })
             .then(res=>{
-                var newarr=this.state.users.map(u=>{
-                    if(u.id==user.id){
-                        return {
-                            first_name:this.state.firstName,
-                            last_name:this.state.lastName,
-                            email:this.state.email,
-                            avatar:user.avatar
-                        }
-                    }
-                    return u
-                })
+                var newuser={
+                    id:user.id,
+                    email:this.state.email,
+                    first_name:this.state.firstName,
+                    last_name:this.state.lastName,
+                    avatar:user.avatar,
+                }
+                this.props.updateCustomers(newuser)
                 this.setState({
-                    users:newarr,
                     firstName:"",
                     lastName:"",
                     email:"",
@@ -116,11 +132,8 @@ class DashBoard extends Component{
         })
         axios.delete("https://reqres.in/api/users/"+id)
         .then(res=>{
-            var newarr=this.state.users.filter(user=>{
-                return user.id!=id
-            })
+            this.props.deleteCustomer(id)
             this.setState({
-                users:newarr,
                 messageType:"alert-success",
                 message:"User deleted",
                 disableEdit:false
@@ -128,6 +141,7 @@ class DashBoard extends Component{
 
         })
         .catch(e=>{
+            console.log(e.response)
             this.setState({
                 messageType:"alert-danger",
                 message:e.response.data,
@@ -146,8 +160,8 @@ class DashBoard extends Component{
 
             axios.get("https://reqres.in/api/users?page="+e.target.text)
             .then(res=>{
+                this.props.addCustomers(res.data.data)
                 this.setState({
-                    users:res.data.data,
                     disableEdit:false
                 })
             })
@@ -161,7 +175,44 @@ class DashBoard extends Component{
         this.setState({
             onPage:e.target.text
         })
+    }
 
+    handleCloseCreateNew(){
+        this.setState({
+            openCreateNew:false
+        })
+    }
+    createNewField(e){
+        this.setState({
+            [e.target.name]:e.target.value
+        })
+    }
+    saveNewUser(e){
+        e.preventDefault()
+        this.setState({
+            enableCreateNew:true
+        })
+        var data={
+            first_name:this.state.newFirstName,
+            last_name:this.state.newLastName,
+            email:this.state.newEmail,
+            avatar:"https://reqres.in/img/faces/7-image.jpg"
+        }
+        axios.post("https://reqres.in/api/users",data)
+        .then(res=>{
+
+            this.props.addCustomer(res.data)
+            this.setState({
+                openCreateNew:false,
+                enableCreateNew:false
+            })
+        })
+        .catch(e=>{
+            this.setState({
+                enableCreateNew:false
+            })
+            console.log(e)
+        })
     }
 
     render() {
@@ -175,8 +226,8 @@ class DashBoard extends Component{
         }
 
         var rows=<tr></tr>
-        if(this.state.users.length>0){
-            rows=this.state.users.map(user=>{
+        if(this.props.customers.length>0){
+            rows=this.props.customers.map(user=>{
                 if(this.state.editUser==user.id){
                     return(
                         <tr key={user.id}>
@@ -218,12 +269,44 @@ class DashBoard extends Component{
         }
 
         return(
-            <div>
+            <div id="dasboard-outer">
                 <Nav user={this.props.user} />
                 
                 <div className="container " id="dashboard-container">
                     {messages}
                     {this.state.disableEdit?<div className="container mt-2"><LinearProgress /></div> :"" }
+                    <button id="create-new-record" type="button" onClick={()=>{this.setState({openCreateNew:true})}} className="btn btn-primary"><AddIcon /> Create new</button>
+                    
+                    <Modal
+                        aria-labelledby="transition-modal-title"
+                        aria-describedby="transition-modal-description"
+                        id="create-new-modal-container"
+                        open={this.state.openCreateNew}
+                        onClose={this.handleCloseCreateNew}
+                        closeAfterTransition
+                        BackdropComponent={Backdrop}
+                        BackdropProps={{
+                        timeout: 500,
+                        }}
+                    >
+                        <Fade in={this.state.openCreateNew}>
+                            <div id="create-new-model-content" >
+                                <form >
+                                    <Avatar alt="Remy Sharp" src="https://reqres.in/img/faces/7-image.jpg" />
+                                    <TextField name="newFirstName" required onChange={this.createNewField} id="outlined-basic" label="First Name" variant="outlined" />
+                                    <TextField name="newLastName" required onChange={this.createNewField} id="outlined-basic" label="Last Name" variant="outlined" />
+                                    <TextField name="newEmail" required onChange={this.createNewField} id="outlined-basic" label="Email" variant="outlined" />
+                                    <Button disabled={this.state.enableCreateNew} onClick={this.saveNewUser} type="submit" variant="outlined" color="primary">
+                                    
+                                    {this.state.enableCreateNew?<CircularProgress  />:"CREATE"}
+                                    </Button>
+                                </form>
+                            </div>
+                        </Fade>
+                    </Modal>
+
+
+
                     <table className="table table-striped">
                         <thead>
                             <tr>
@@ -252,8 +335,25 @@ class DashBoard extends Component{
 
 const mapStateToProps=(state)=>{
     return{
-        user:state.user
+        user:state.user,
+        customers:state.customers
+    }
+}
+const mapDispatchToProps=(dispatch)=>{
+    return{
+        addCustomers:(customers)=>{
+            dispatch({type:"add-customers",customers:customers})
+        },
+        updateCustomers:(customer)=>{
+            dispatch({type:"update-customers",customer:customer})
+        },
+        deleteCustomer:(id)=>{
+            dispatch({type:"delete-customer",id:id})
+        },
+        addCustomer:(customer)=>{
+            dispatch({type:"add-customer",customer:customer})
+        },
     }
 }
 
-export default connect(mapStateToProps)(DashBoard)
+export default connect(mapStateToProps,mapDispatchToProps)(DashBoard)

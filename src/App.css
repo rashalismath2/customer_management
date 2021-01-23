@@ -5,7 +5,7 @@ html,#root,#App{
 #App {
   text-align: center;
 }
-.clearfix{
+.clearfix::after{
   content: "";
   clear: both;
   display: block;
@@ -93,19 +93,20 @@ html,#root,#App{
 }
 
 
-@media only screen and (max-width: 380px)  {
-  #login-form-container>div div{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
+nav{
+  height: 60px;
+    padding: 0 5% !important;
 }
 
 nav>div:first-child{
-  float: left;
+  width: 50%;
+  display: flex;
+  justify-content: flex-start;
 }
 nav>div:last-child{
-  float: right;
+  width: 50%;
+  display: flex;
+  justify-content: flex-end;
 }
 .dropdown{
   height: 30px;
@@ -152,22 +153,99 @@ td .btn-sm{
   overflow: unset;
 }
 
+
+.errorMessage{
+  background: #ffadad;
+  color: white;
+  font-size: 20px;
+  padding: 5px;
+  border-radius: 5px;
+  margin: 0px 20%;
+  height: 30px;
+  text-transform: capitalize;
+  margin-bottom: 15px;
+}
+
+.btn-close{
+  padding: 5px !important;
+}
+#create-new-record{
+  margin-bottom: 15px;
+  float: right;
+}
+#create-new-record{
+  margin-bottom: 15px;
+  float: right;
+  margin-right: 1%;
+  height: fit-content;
+  padding: 5px;
+  font-size: 12px;
+}
+
+#create-new-model-content{
+  background: white;
+  opacity: 1 !important;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: 1px solid black;
+  height: fit-content;
+  width: fit-content;
+}
+
+#create-new-modal-container form>div,#create-new-modal-container form>button{
+  margin: 10px;
+}
+#create-new-modal-container form>div:first-child{
+  width: 100% !important;
+}
+
+#create-new-modal-container form>div:first-child img{
+  width: 50px !important;
+}
+
+
+#create-new-modal-container form{
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+#create-new-modal-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#dashboard-container table {
+  font-size: 13px !important;
+}
+
+
+
 @media only screen and (max-width: 740px)  {
+
+  #login-container{
+    overflow: scroll;
+    display: block;
+    position: relative;
+    height: 100%;
+  }
 
   .userName{
     font-size: 19px;
   }
 
-  #login-container{
-    display: flex;
-    overflow: scroll;
-    flex-direction: column;
+  #login-container .auth-right{
+    height: fit-content;
   }
   #login-container>div{
     width: 100%;
   }
   .auth-left{
-    flex: 1;
+    height: 130px;
   }
   .auth-left img {
     height: 130px;
@@ -194,7 +272,15 @@ td .btn-sm{
   }
 
   #outlined-basic-label{
-    top: -9px;
+    /* top: -9px; */
+  }
+
+
+  #create-new-record{
+    margin-right: 5%;
+  }
+  #create-new-record svg{
+    height: 12px;
   }
 
 
@@ -269,16 +355,40 @@ td .btn-sm{
 
 }
 
-.errorMessage{
-  background: #ffadad;
-  color: white;
-  font-size: 20px;
-  padding: 5px;
-  border-radius: 5px;
-  margin: 0px 20%;
-  height: 30px;
-  text-transform: capitalize;
-  margin-bottom: 15px;
+
+
+@media only screen and (max-width: 380px)  {
+  #dasboard-outer{
+    overflow: scroll;
+    display: block;
+    position: relative;
+    height: 100%;
+  }
+  nav{
+    height: fit-content;
+    padding: 10px !important;
+    display: block !important;
+  }
+  nav>div{
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+  .auth-left{
+    height: 130px !important;
+  }
+
+  #login-container{
+    overflow: scroll !important;
+    position: relative;
+    display: block;
+  }
+
+  #login-form-container>div div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 }
 
 
@@ -294,6 +404,7 @@ td .btn-sm{
     #dashboard-container table tr{
       font-size: 12px !important;
     }
+    
 }
 @media (min-width: 576px){
   .container{
@@ -309,6 +420,10 @@ td .btn-sm{
     max-width: 100% !important;
     padding: 0 !important;
   }
+  .MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-formControl{
+      height: 35px;
+      margin-top: 15px;
+    }
   body{
     letter-spacing: 2px;
     /* font-size: 35px; */
@@ -321,6 +436,10 @@ td .btn-sm{
 
   #login-container h1,a,h2,p{
     font-size: 1rem;
+  }
+  #login-container .MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-formControl{
+    height: 35px;
+    margin-top: 15px;
   }
 
   #dashboard-container{

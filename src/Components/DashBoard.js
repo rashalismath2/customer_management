@@ -189,30 +189,38 @@ class DashBoard extends Component{
     }
     saveNewUser(e){
         e.preventDefault()
-        this.setState({
-            enableCreateNew:true
-        })
-        var data={
-            first_name:this.state.newFirstName,
-            last_name:this.state.newLastName,
-            email:this.state.newEmail,
-            avatar:"https://reqres.in/img/faces/7-image.jpg"
+        if(
+            this.state.newFirstName!="" ||
+            this.state.newLastName!="" ||
+            this.state.newEmail!=""
+            ){
+            this.setState({
+                enableCreateNew:true
+            })
+            var data={
+                first_name:this.state.newFirstName,
+                last_name:this.state.newLastName,
+                email:this.state.newEmail,
+                avatar:"https://reqres.in/img/faces/7-image.jpg"
+            }
+            axios.post("https://reqres.in/api/users",data)
+            .then(res=>{
+    
+                this.props.addCustomer(res.data)
+                this.setState({
+                    openCreateNew:false,
+                    enableCreateNew:false,
+                    message:"User created",
+                    messageType:"alert-success"
+                })
+            })
+            .catch(e=>{
+                this.setState({
+                    enableCreateNew:false
+                })
+                console.log(e)
+            })
         }
-        axios.post("https://reqres.in/api/users",data)
-        .then(res=>{
-
-            this.props.addCustomer(res.data)
-            this.setState({
-                openCreateNew:false,
-                enableCreateNew:false
-            })
-        })
-        .catch(e=>{
-            this.setState({
-                enableCreateNew:false
-            })
-            console.log(e)
-        })
     }
 
     render() {
